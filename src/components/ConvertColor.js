@@ -17,12 +17,18 @@ export default function ConvertColor() {
     const [isTrue, setIsTrue] = useState(true)
 
     const handleColor = (event) => {
-        if (/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(event.target.value)) {
+        if(event.target.value.length < 7){
+            setIsTrue(true)
+            setColor('#ffffff')
+            return
+        }
+        if (/^#([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.test(event.target.value) ) {
             setColor(event.target.value)
             setRgb(hexToRgb(event.target.value))
             setIsTrue(true)
-        } else {
+        }  else{
             setIsTrue(false)
+            setColor('red')
         }
     }
 
@@ -33,7 +39,7 @@ export default function ConvertColor() {
             }
         }>
             <form>
-                <input type="text" className='converter__input' onChange={handleColor} />
+                <input type="text" placeholder='Введите цвет #hex' className='converter__input' onChange={handleColor} />
             </form>
             <div className='converter__output'>
                 <p>
